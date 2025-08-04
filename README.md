@@ -8,7 +8,7 @@ Welcome to **Aventura Espacial Educativa**, a playful and interactive web applic
 
 ## 🧠 Features
 
-- 🎙️ Voice interaction using ElevenLabs API (TTS)
+- 🎙️ Voice interaction using Piper (TTS)
 - 🤖 AI-driven responses using Gemini API
 - 🧮 Educational missions focused on math for kids
 - 🎥 Animated space background and interactive characters
