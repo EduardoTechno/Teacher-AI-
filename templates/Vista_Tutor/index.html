@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Virtual - Profe Raúl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+    body {
+        font-family: 'Comic Neue', cursive, sans-serif;
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-align: center;
+        position: relative;
+        /* Nuevo fondo espacial */
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        overflow: hidden;
+    }
+
+    /* Estrellas animadas */
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+
+    .stars::before, .stars::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        animation: twinkle var(--duration) infinite ease-in-out;
+    }
+
+    .stars::before {
+        top: 20%;
+        left: 30%;
+        --duration: 5s;
+    }
+
+    .stars::after {
+        top: 60%;
+        left: 70%;
+        --duration: 7s;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+
+    /* Crear múltiples estrellas */
+    .stars span {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        animation: twinkle var(--duration) infinite ease-in-out;
+    }
+
+    /* Planeta decorativo */
+    .planet {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #3a5a78, #1e3a5f, #0a192f);
+        box-shadow: inset -20px -20px 40px rgba(0, 0, 0, 0.5),
+                    0 0 50px rgba(100, 255, 218, 0.3);
+        right: -100px;
+        bottom: -100px;
+        z-index: -1;
+        animation: planet-rotate 60s infinite linear;
+    }
+
+    @keyframes planet-rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* Efecto de nebulosa */
+    .nebula {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, 
+                    rgba(100, 255, 218, 0.1) 0%, 
+                    rgba(100, 255, 218, 0) 40%),
+                    radial-gradient(circle at 80% 70%, 
+                    rgba(255, 100, 218, 0.1) 0%, 
+                    rgba(255, 100, 218, 0) 40%);
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+    /* Cohetes decorativos */
+    .rocket {
+        position: absolute;
+        width: 40px;
+        height: 80px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12,2.5c0,0,4.5,2.04,4.5,10.5c0,2.49-1.04,5.57-1.6,7H9.1c-0.56-1.43-1.6-4.51-1.6-7C7.5,4.54,12,2.5,12,2.5z M13,15.5h-2v-2h2V15.5z M13,12.5h-2v-5h2V12.5z"/></svg>') no-repeat center;
+        background-size: contain;
+        filter: drop-shadow(0 0 5px rgba(100, 255, 218, 0.8));
+        animation: fly var(--duration) linear infinite;
+        opacity: 0.7;
+    }
+
+    @keyframes fly {
+        0% { transform: translate(var(--start-x), var(--start-y)) scale(0.5); opacity: 0; }
+        10% { opacity: 0.7; }
+        90% { opacity: 0.7; }
+        100% { transform: translate(var(--end-x), var(--end-y)) scale(0.5); opacity: 0; }
+    }
+
+    /* Actualización del avatar para que combine con el tema espacial */
+    .avatar-container {
+        border: 5px solid #64ffda;
+        box-shadow: 0 0 30px rgba(100, 255, 218, 0.5),
+                    0 0 60px rgba(100, 255, 218, 0.3),
+                    0 0 90px rgba(100, 255, 218, 0.1);
+    }
+
+    /* Actualización del botón de micrófono */
+    .mic-button {
+        background-color: #64ffda;
+        color: #0a192f;
+        box-shadow: 0 0 15px rgba(100, 255, 218, 0.7),
+                    0 0 30px rgba(100, 255, 218, 0.3);
+    }
+
+    .mic-button.listening {
+        background-color: #ff4d4d;
+        box-shadow: 0 0 15px rgba(255, 77, 77, 0.7),
+                    0 0 30px rgba(255, 77, 77, 0.3);
+    }
+
+    
+        .imagen-fondo2 {
+            position: absolute;
+            top: 5%;
+            left: 8%;
+            width: 85%;
+            height: 90%;
+            z-index: -1;
+        }
+        
+        .avatar-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #64ffda;
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+            overflow: hidden;
+            transition: all 1s ease-in-out;
+            transform: translate(-50%, -50%);
+        }
+
+        .avatar-presentacion {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .avatar-activo {
+            left: 125px;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            100% { transform: translate(-50%, -50%) translateY(0px); }
+        }
+
+        #avatarImage, #avatarVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        #avatarVideo {
+            opacity: 0;
+        }
+
+        .talking #avatarVideo {
+            opacity: 1;
+        }
+
+        .talking #avatarImage {
+            opacity: 0;
+        }
+        
+        .mic-button {
+            position: absolute;
+            bottom: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #64ffda;
+            color: #0a192f;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(100, 255, 218, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s ease 3s;
+        }
+        
+        .mic-button.visible {
+            opacity: 1;
+        }
+        
+        .mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(100, 255, 218, 0.7);
+        }
+        
+        .mic-button:active {
+            transform: scale(0.95);
+        }
+        
+        .mic-button.listening {
+            background-color: #ff4d4d;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 77, 77, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+        }
+        
+        .status-message {
+            position: absolute;
+            bottom: 110px;
+            width: 80%;
+            text-align: center;
+            font-size: 18px;
+            color: #ffffff;
+            background: rgba(10, 25, 47, 0.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #64ffda;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .status-message.visible {
+            opacity: 1;
+        }
+        
+        .voice-transcript {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .voice-transcript.visible {
+            opacity: 1;
+        }
+        
+        .voice-transcript .label {
+            font-weight: bold;
+            color: #64ffda;
+            margin-bottom: 5px;
+        }
+
+        /* Div con bordes azules (nuevo elemento agregado) */
+        .borde-azul {
+            position: absolute;
+            margin-top: 5%;
+            width: 1000px;
+            height: 385px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .borde-rojo {
+            position: absolute;
+            margin-bottom: 28%;
+            width: 1000px;
+            height: 100px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        /* Estilo de pizarra para el texto */
+        .texto-pizarra {
+            font-family: 'Patrick Hand', cursive;
+            font-size: x-large;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: escribir 0.5s steps(40) forwards;
+            white-space: pre-wrap;
+            overflow: hidden;
+            max-width: 90%;
+        }
+        
+        @keyframes escribir {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        /* Estilo para los ejemplos */
+        .ejemplo-pizarra {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border-radius: 8px;
+            max-width: 90%;
+        }
+         /* Contenedor del número gigante */
+         .numero-llamativo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem;
+            font-weight: bold;
+            color: #64ffda;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.8),
+                         0 0 40px rgba(100, 255, 218, 0.6),
+                         0 0 60px rgba(100, 255, 218, 0.4);
+            opacity: 0;
+            z-index: 10;
+            animation: aparecerDesaparecer 4s ease-in-out forwards;
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        @keyframes aparecerDesaparecer {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            30% { transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 1; }
+
+        }
+        
+        /* Efecto de partículas alrededor del número */
+        .particula {
+            position: absolute;
+            background-color: #64ffda;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9;
+        }
+        .ejemplo-emojis {
+            font-size: 3rem;
+            margin: 15px;
+            opacity: 0;
+            transform: scale(0.5);
+            display: inline-block;
+        }
+
+        @keyframes aparecerEmoji {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes rebote {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        /* Contenedor principal de emojis */
+        .contenedor-emojis {
+            max-width: 100%;
+            max-height: 70vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        /* Estilo para cada grupo de emojis */
+        .grupo-emojis {
+            font-size: 4rem;
+            text-align: center;
+            animation: aparecerEmoji 0.5s ease-out forwards;
+            line-height: 1.2;
+        }
+
+        /* Ajuste responsivo */
+        @media (max-width: 768px) {
+            .grupo-emojis {
+                font-size: 3rem;
+            }
+        }
+        /* ANIMACIONES PRINCIPALES */
+        @keyframes brillo-arcoiris {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+            16% { text-shadow: 0 0 10px #ff8000, 0 0 20px #ff8000; }
+            33% { text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00; }
+            50% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+            66% { text-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff; }
+            83% { text-shadow: 0 0 10px #8000ff, 0 0 20px #8000ff; }
+            100% { text-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080; }
+        }
+
+        @keyframes flotar-3d {
+            0%, 100% { 
+                transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) scale(1); 
+            }
+            25% { 
+                transform: translate(-50%, -50%) rotateX(10deg) rotateY(5deg) scale(1.05); 
+            }
+            50% { 
+                transform: translate(-50%, -50%) rotateX(-5deg) rotateY(10deg) scale(1.1); 
+            }
+            75% { 
+                transform: translate(-50%, -50%) rotateX(5deg) rotateY(-5deg) scale(1.05); 
+            }
+        }
+
+        @keyframes gradient-fondo {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* DISEÑO DEL NÚMERO MÁGICO */
+        .numero-llamativo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw; /* Tamaño responsivo */
+            font-weight: 900;
+            font-family: 'Comic Neue', cursive;
+            color: white;
+            -webkit-text-stroke: 3px #000;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+            animation: 
+                brillo-arcoiris 3s infinite linear,
+                flotar-3d 8s infinite ease-in-out;
+            perspective: 1000px;
+            text-align: center;
+            
+            /* Efecto 3D con sombras múltiples */
+            text-shadow: 
+                1px 1px 0 #000, 
+                2px 2px 0 #000,
+                3px 3px 0 #000,
+                4px 4px 10px rgba(0,0,0,0.5);
+            
+            /* Fondo animado */
+            background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff, #ff0080, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: 
+                gradient-fondo 8s ease infinite,
+                brillo-arcoiris 3s infinite linear,
+                flotar-3d 8s infinite ease-in-out;
+        }
+
+        /* CONTENEDOR DE EFECTO ESPECIAL */
+        .numero-contenedor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        /* PARTÍCULAS MEJORADAS */
+        .particula-mejorada {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            filter: blur(1px);
+            opacity: 0.8;
+            animation: particula-volar 3s ease-out forwards;
+        }
+
+        @keyframes particula-volar {
+            0% { 
+                transform: translate(0, 0) scale(0.5); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0;
+            }
+        }
+        .game-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .game-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+
+        .game-button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <div class="stars" id="stars"></div>
+        <div class="planet"></div>
+        <!-- Resto de tu contenido HTML... -->
+        <img src="/static/Image/Planeta_Numeros/Pizarra.png" alt="Fondo" class="imagen-fondo2" style="content-visibility: hidden;" id="Pizarra">
+        <!-- ... resto de tu HTML ... -->
+    </body>
+    <img src="/static/Image/Planeta_Numeros/Pizarra.png" alt="Fondo" class="imagen-fondo2" style="content-visibility: hidden;" id="Pizarra">
+
+    <div class="avatar-container avatar-presentacion" id="avatarContainer">
+        <img id="avatarImage" src="/static/Image/Astronauta-Mujer.jpeg" alt="Avatar del Profe Raúl">
+        <video id="avatarVideo" loop muted playsinline>
+            <source src="/static/Image/Atronauta-Mujer-Video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Div con bordes rojo (titulo) agregado -->
+    <div class="borde-rojo" id="texto">
+        <div class="texto-pizarra" id="textoPizarra"></div>
+    </div>
+
+    <!-- Div con bordes azules ejemplo agregado -->
+    <div class="borde-azul" id="ejemplos">
+        <div class="ejemplo-pizarra" id="ejemploPizarra" style="visibility: hidden;"></div>
+    </div>
+    <div class="voice-transcript" id="voiceTranscript">
+        <div class="label">Dijiste:</div>
+        <div id="transcriptText"></div>
+    </div>
+    <button class="mic-button" id="micButton">
+        <i class="fas fa-microphone"></i>
+    </button>
+    
+    <div class="status-message" id="statusMessage"></div>
+
+    <div class="numero-contenedor" id="numeroContenedor"></div>
+    <div id="numeroLlamativo" class="numero-llamativo"></div>
+    <audio id="audioPlayer"></audio>
+    <!-- Botón de regreso -->
+<button id="backButton" style="position: fixed; bottom: 20px; left: 20px; padding: 10px 20px; 
+background-color: #64ffda; color: #0a192f; border: none; border-radius: 5px; 
+cursor: pointer; font-size: 16px; z-index: 1000;">
+<i class="fas fa-arrow-left"></i> Regresar
+</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarContainer = document.getElementById('avatarContainer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const micButton = document.getElementById('micButton');
+            const statusMessage = document.getElementById('statusMessage');
+            const voiceTranscript = document.getElementById('voiceTranscript');
+            const transcriptText = document.getElementById('transcriptText');
+            const textoPizarra = document.getElementById('textoPizarra');
+            const ejemploPizarra = document.getElementById('ejemploPizarra');
+            const audioNumero = new Audio('static/audio/ting.mp3');
+            audioNumero.preload = 'auto';
+            
+            let recognition;
+            let isListening = false;
+            
+            const PERSONALIDAD_MATEMATICAS = `
+                Eres una tutora llamada Emily, especializada en enseñar a un niño de primer grado de primaria.
+                Tu tono siempre debe ser amable, paciente y motivador. 
+                Solo enseñaras los numeros del 1 al 10.
+                Si te preguntan sobre algun otro tema que no sea de los numeros del 1 al 10, diras que eso se vera en futuras misiones.
+
+                Para cada número que expliques sigue estrictamente el siguiente formato:
+                1.Presenta el numero de manera llamativa al niño, mencionar algo característico de ese numero y finaliza pidiendo que lo repita contigo, este es un ejemplo de como lo quiero "vamosa aprender sobre el siguiente número.\n Este es el número 2.\n¡El número 2 se parece a un patito nadando en el agua! Ahora, ¿puedes repetir conmigo? "Dos".".
+                2.No menciones nada mas hasta que el alumno te repita el numero.
+                3.Si te repite el numero bien felicitalo como por ejemplo "¡Perfecto! ¡Lo has dicho muy bien! ese es el numero cuatro" y si se equivoca motivalo para que lo vuelva a intentar.
+                4.Explica un numero a la vez.
+                5.Una vez que el alumno te repita el numero procede a darle 3 ejemplos de manera llamativa con ese numero, los ejemplos que sigan la siguiente estructura (Aquí tienes algunos ejemplos con el número 3:\n 🍓🍓🍓 Tres fresas.\n 🍌🍌🍌 Tres plátanos.\n 🍉🍉🍉 Tres sandías.\n) y pidele que te de un ejemplo pero no es necesario que el te ponga stickers.
+                6.En tus ejemplos siempre absolutamente siempre utiliza la cantidad de emojis del numero que estas explicando, si el numero 1 solo un sticker, si es el numero 2 dos sticker y asi con cada numero.
+                7.No menciones nada mas hasta que el alumno te de un ejemplo.
+                8.Si te da un ejemplo bien felicitalo y si se equivoca motivalo para que lo vuelva a intentar, (Cuando lo felicites o motives no utilices stickers).
+            `;
+            
+            function initSpeechRecognition() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                
+                if (SpeechRecognition) {
+                    recognition = new SpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    recognition.lang = 'es-ES';
+                    
+                    recognition.onstart = () => {
+                        isListening = true;
+                        micButton.classList.add('listening');
+                        micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                        showStatusMessage("Escuchando... 🎤");
+                    };
+                    
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        showTranscript(transcript);
+                        enviarMensajeVoz(transcript);
+                    };
+                    
+                    recognition.onerror = (event) => {
+                        console.error('Error en reconocimiento de voz:', event.error);
+                        stopSpeechRecognition();
+                        showStatusMessage("No pude entenderte. Intenta de nuevo.");
+                        setTimeout(() => hideStatusMessage(), 3000);
+                    };
+                    
+                    recognition.onend = () => {
+                        if (isListening) {
+                            recognition.start();
+                        }
+                    };
+                } else {
+                    micButton.disabled = true;
+                    micButton.title = 'Reconocimiento de voz no soportado en este navegador';
+                    showStatusMessage("Tu navegador no soporta reconocimiento de voz");
+                }
+            }
+            
+            function toggleSpeechRecognition() {
+                if (!recognition) {
+                    initSpeechRecognition();
+                }
+                
+                if (isListening) {
+                    stopSpeechRecognition();
+                } else {
+                    recognition.start();
+                }
+            }
+            
+            function stopSpeechRecognition() {
+                isListening = false;
+                micButton.classList.remove('listening');
+                micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+                if (recognition) recognition.stop();
+                hideStatusMessage();
+            }
+            
+            function showStatusMessage(message) {
+                statusMessage.textContent = message;
+                statusMessage.classList.add('visible');
+            }
+            
+            function hideStatusMessage() {
+                statusMessage.classList.remove('visible');
+            }
+            
+            function showTranscript(text) {
+                transcriptText.textContent = text;
+                voiceTranscript.classList.add('visible');
+                
+                setTimeout(() => {
+                    voiceTranscript.classList.remove('visible');
+                }, 5000);
+            }
+            
+            function mostrarNumeroLlamativo(numero) {
+                 // Eliminar después de 5 segundos
+                 setTimeout(() => {
+                        contenedorEmojis.style.transition = 'opacity 0.5s ease-in-out';
+                        contenedorEmojis.style.opacity = '0';
+                        setTimeout(() => {
+                            ejemploPizarra.removeChild(contenedorEmojis);
+                        }, 500);
+                    }, 5000);
+                const contenedor = document.getElementById('numeroContenedor');
+                const elementoNumero = document.getElementById('numeroLlamativo');
+                
+                // Reiniciar animación
+                elementoNumero.style.animation = 'none';
+                elementoNumero.style.opacity = '0';
+                void elementoNumero.offsetWidth;
+                
+                // Configurar número
+                elementoNumero.textContent = numero;
+                
+                // Efecto de aparición
+                setTimeout(() => {
+                    elementoNumero.style.opacity = '1';
+                    elementoNumero.style.animation = `
+                        gradient-fondo 8s ease infinite,
+                        brillo-arcoiris 3s infinite linear,
+                        flotar-3d 8s infinite ease-in-out
+                    `;
+                    
+                    // Reproducir sonido con efecto
+                    audioNumero.currentTime = 0;
+                    audioNumero.play().catch(e => console.log("Audio no pudo reproducirse:", e));
+                    
+                    // Crear partículas mejoradas
+                    crearParticulasMejoradas(numero);
+                    
+                    // Efecto de vibración al aparecer
+                    elementoNumero.style.transform = 'translate(-50%, -50%) scale(1.3)';
+                    setTimeout(() => {
+                        elementoNumero.style.transform = 'translate(-50%, -50%) scale(1)';
+                    }, 300);
+                }, 50);
+            }
+
+            // Función para ocultar el número (actualizada)
+            function ocultarNumero() {
+                const elementoNumero = document.getElementById('numeroLlamativo');
+                const contenedor = document.getElementById('numeroContenedor');
+                
+                // Efecto de desvanecimiento con escala
+                elementoNumero.style.transition = 'all 0.5s ease-in-out';
+                elementoNumero.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                elementoNumero.style.opacity = '0';
+                
+                // Sonido al desaparecer (opcional)
+                setTimeout(() => {
+                    audioNumero.currentTime = 0.3;
+                    audioNumero.play().catch(e => console.log(e));
+                }, 200);
+                
+                // Limpiar partículas
+                setTimeout(() => {
+                    contenedor.innerHTML = '';
+                }, 1000);
+            }
+            
+            function crearParticulasMejoradas(numero) {
+                const contenedor = document.getElementById('numeroContenedor');
+                const colores = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                const formas = ['circle', 'square', 'triangle'];
+                
+                // Limpiar partículas anteriores
+                contenedor.innerHTML = '';
+                
+                // Crear 100 partículas
+                for (let i = 0; i < 100; i++) {
+                    const particula = document.createElement('div');
+                    particula.className = 'particula-mejorada';
+                    
+                    // Configuración aleatoria
+                    const tamaño = Math.random() * 20 + 10;
+                    const color = colores[Math.floor(Math.random() * colores.length)];
+                    const forma = formas[Math.floor(Math.random() * formas.length)];
+                    
+                    // Estilo básico
+                    particula.style.width = `${tamaño}px`;
+                    particula.style.height = `${tamaño}px`;
+                    particula.style.background = color;
+                    particula.style.opacity = '0.8';
+                    
+                    // Posición inicial (alrededor del centro)
+                    particula.style.left = `50%`;
+                    particula.style.top = `50%`;
+                    
+                    // Dirección aleatoria
+                    const angulo = Math.random() * Math.PI * 2;
+                    const distancia = Math.random() * 300 + 100;
+                    const tx = Math.cos(angulo) * distancia;
+                    const ty = Math.sin(angulo) * distancia;
+                    
+                    particula.style.setProperty('--tx', `${tx}px`);
+                    particula.style.setProperty('--ty', `${ty}px`);
+                    
+                    // Formas especiales
+                    if (forma === 'triangle') {
+                        particula.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+                        particula.style.background = 'transparent';
+                        particula.style.borderBottom = `${tamaño}px solid ${color}`;
+                        particula.style.borderLeft = `${tamaño/2}px solid transparent`;
+                        particula.style.borderRight = `${tamaño/2}px solid transparent`;
+                        particula.style.width = '0';
+                        particula.style.height = '0';
+                    } else if (forma === 'square') {
+                        particula.style.borderRadius = '5px';
+                    }
+                    
+                    // Retraso aleatorio
+                    particula.style.animationDelay = `${Math.random() * 0.5}s`;
+                    
+                    contenedor.appendChild(particula);
+                    
+                    // Eliminar después de la animación
+                    setTimeout(() => {
+                        particula.remove();
+                    }, 3000);
+                }
+            }
+            
+            // Modifica tu función mostrarTextoEnPizarra para detectar números
+            async function mostrarTextoEnPizarra(texto) {
+                // Limpiar elementos
+                textoPizarra.textContent = '';
+                ejemploPizarra.innerHTML = '';
+                
+                // Detectar número
+                const matchNumero = texto.match(/número (\d+)/i);
+                if (matchNumero && matchNumero[1]) {
+                    mostrarNumeroLlamativo(matchNumero[1]);
+                }
+                
+                // Mostrar texto con efecto de escritura
+                let i = 0;
+                const velocidadEscritura = 30;
+                
+                function escribirCaracter() {
+                    if (i < texto.length) {
+                        textoPizarra.textContent += texto.charAt(i);
+                        i++;
+                        setTimeout(escribirCaracter, velocidadEscritura);
+                    }
+                    // Ocultar número cuando empiezan los ejemplos
+                    else if (texto.includes("ejemplos") || texto.includes("Veamos")) {
+                        ocultarNumero();
+                        setTimeout(() => mostrarEjemplosConEmojis(texto), 500);
+                    }
+                }
+                
+                escribirCaracter();
+            }
+            // Reemplaza la función mostrarEjemplosConEmojis con esta versión mejorada
+            function mostrarEjemplosConEmojis(texto) {
+                // Ocultar completamente el número
+                document.getElementById('numeroLlamativo').style.opacity = '0';
+                
+                // Limpiar el contenedor de ejemplos
+                ejemploPizarra.innerHTML = '';
+                ejemploPizarra.style.visibility = 'visible';
+                
+                // Extraer todos los grupos de emojis del texto
+                const lineasConEmojis = texto.split('\n').filter(linea => 
+                    /\p{Emoji}/u.test(linea) // Busca líneas que contengan emojis
+                );
+                
+                if (lineasConEmojis.length > 0) {
+                    // Crear contenedor principal
+                    const contenedorEmojis = document.createElement('div');
+                    contenedorEmojis.className = 'contenedor-emojis';
+                    
+                    // Procesar cada línea de emojis
+                    lineasConEmojis.forEach((linea, index) => {
+                        // Extraer solo los emojis (eliminar números y texto)
+                        const emojis = linea.replace(/[^🍎🍏🍐🍊🍋🍌🍉🍇🍓🫐🍈🎸🍒🍑🥭🍍🍩🧁🥝🥥🍅🍆🫑🥜🌰🍄🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🍖🍗🥩🥓🍔🍟🍕☀️⭐🌟✨👩‍🚀🌵🎄🌲🌳🌴🪵🌱🌿☘️🍀🎍🪴🎋🍃🍂🍁🍄🪺🌾🪸🌷🌹🥀🌺🌸🌼🌻🪷💐🌎🌍🌏🚀🛸👽👾🤖🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🐒🐔🐧🐦🐤🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🦀🦞🐢🐍🦎🦖🦕🐙🦑🦐🐠🐟🐡🦈🐬🐳🐋🦭🐊🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦘🦒🦬🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🦮🐕‍🦺🐈🐈‍⬛🦤🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🚗🚕🚙🚌🚎🏎️🚓🚑🚒🚐🛻🚚🚛🚜🦯🦽🦼🛴🚲🛵🏍️🛺🚔🚍🚘🚖🚡🚠🚟🚃🚋🚞🚝🚄🚅🚈🚂🚆🚇🚊🚉✈️🛫🛬🛩️💺🛰️🚀🛸🚁🛶⛵️🚤🛥️🛳️⛴️🚢📚✏️📝📖📒📔📓📕📗📘📙📰🔖🧷📎📌📍📏📐✂️📦🎁🎈🎀🪄🎊🎉🪅🪩🎐🏷️🛍️🛒🧸🪀🪁🤿🛹🛼🛷🎮🎰🎲♟️🧩🎨🖍️🖌️🎭🪆🎪🎫🎟️🎠🎡🎢🚂💈🧱🪵🪨🛖🏠🏡🏚️🏘️🏰🏯🏟️🏗️🛕⛪️🕌🕍🛟🛝🛁🚽🚿🪠🧴🧷🧹🪣🧺🪜🛏️🛋️🚪🪑🪞🪟🛍️🕯️💡🔦🏮🪔📔📱☎️📞📟📠🔌💻🖥️🖨️⌨️🖱️🖲️💽💾💿📀🎥📽️🎞️📹📸📷🔍🕯️💡🔦🏮🪔🧭⌛⏳⏰🕰️⏱️👧👦👨👩👴👵👶🧒🧑🧔🧓👨‍🦰👩‍🦰👨‍🦱👩‍🦱👨‍🦳👩‍🦳👨‍🦲👩‍🦲👱‍♀️👱‍♂️👳‍♀️👳‍♂️🧕👮‍♀️👮‍♂️👷‍♀️👷‍♂️💂‍♀️💂‍♂️🕵️‍♀️🕵️‍♂️👩‍⚕️👨‍⚕️👩‍🌾👨‍🌾👩‍🍳👨‍🍳👩‍🎓👨‍🎓👩‍🎤👨‍🎤👩‍🏫👨‍🏫👩‍🏭👨‍🏭👩‍💻👨‍💻👩‍💼👨‍💼👩‍🔧👨‍🔧👩‍🔬👨‍🔬👩‍🎨👨‍🎨👩‍🚒👨‍🚒👩‍✈️👨‍✈️👩‍🚀👨‍🚀👩‍⚖️👨‍⚖️👰‍♀️👰‍♂️🤵‍♀️🤵‍♂️👸🤴🦸‍♀️🦸‍♂️🦹‍♀️🦹‍♂️🤶🎅🧙‍♀️🧙‍♂️🧝‍♀️🧝‍♂️🧛‍♀️🧛‍♂️🧟‍♀️🧟‍♂️🧞‍♀️🧞‍♂️🧜‍♀️🧜‍♂️🧚‍♀️🧚‍♂️👼🤰🤱🙇‍♀️🙇‍♂️💁‍♀️💁‍♂️🙅‍♀️🙅‍♂️🙆‍♀️🙆‍♂️🙋‍♀️🙋‍♂️🧏‍♀️🧏‍♂️🤦‍♀️🤦‍♂️🤷‍♀️🤷‍♂️🙎‍♀️🙎‍♂️🙍‍♀️🙍‍♂️💇‍♀️💇‍♂️💆‍♀️💆‍♂️🧖‍♀️🧖‍♂️💅🤳💃🕺👯‍♀️👯‍♂️🕴️👫👬👭💏💑👪🔢➕➖✖️➗🟰❓❗✅🔤🔡🔠🎯🖍️📌📝⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🪀🏓]/gu, '');
+                        
+                        if (emojis) {
+                            const grupoEmojis = document.createElement('div');
+                            grupoEmojis.className = 'grupo-emojis';
+                            grupoEmojis.textContent = emojis;
+                            grupoEmojis.style.animationDelay = `${index * 0.2}s`;
+                            contenedorEmojis.appendChild(grupoEmojis);
+                        }
+                    });
+                    
+                    // Agregar al DOM
+                    ejemploPizarra.appendChild(contenedorEmojis);
+                }
+            }
+            
+            async function presentacionInicial() {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const mensajeBienvenida = "¡Hola astronauta! Soy tu tutora Emily. Prepárate para aprender matemáticas en el espacio.";
+                mostrarTextoEnPizarra(mensajeBienvenida);
+                await reproducirTexto(mensajeBienvenida);
+                
+                avatarContainer.classList.remove('avatar-presentacion');
+                avatarContainer.classList.add('avatar-activo');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                micButton.classList.add('visible');
+                
+                const mensajeInicio = "Presiona el micrófono cuando quieras hablar conmigo. Hoy aprenderemos los numeros del 1 al 10. ¿Estas Listo para comenzar?";
+                document.getElementById('Pizarra').style.removeProperty('content-visibility');
+                mostrarTextoEnPizarra(mensajeInicio);
+                await reproducirTexto(mensajeInicio);
+            }
+            
+            async function enviarMensajeVoz(mensaje) {
+                showStatusMessage("Tu Tutora Emily está pensando...");
+                
+                try {
+                    const response = await fetch('/enviar_mensaje', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            mensaje: mensaje,
+                            personalidad: PERSONALIDAD_MATEMATICAS
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.respuesta) {
+                        showStatusMessage("Tutora Emily está respondiendo...");
+                        mostrarTextoEnPizarra(data.respuesta);
+                        await reproducirTexto(data.respuesta);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showStatusMessage("¡Ups! Algo salió mal. Intenta nuevamente.");
+                } finally {
+                    setTimeout(() => hideStatusMessage(), 2000);
+                }
+            }
+            
+            async function reproducirTexto(texto) {
+                try {
+                    const audioUrl = await generarAudio(texto);
+                    if (audioUrl) {
+                        await reproducirAudio(audioUrl);
+                    }
+                } catch (error) {
+                    console.error("Error al reproducir texto:", error);
+                }
+            }
+            
+            async function generarAudio(texto) {
+                try {
+                    const nombreArchivo = `audio_${Date.now()}.wav`;
+                    const res = await fetch('/generar_audio', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            texto: texto, 
+                            nombre_archivo: nombreArchivo 
+                        })
+                    });
+                    const data = await res.json();
+                    return data.audio_path || null;
+                } catch (e) {
+                    console.error("Error al generar audio:", e);
+                    return null;
+                }
+            }
+            
+            async function reproducirAudio(url) {
+                return new Promise((resolve, reject) => {
+                    audioPlayer.src = url;
+                    
+                    audioPlayer.addEventListener('play', function() {
+                        avatarContainer.classList.add('talking');
+                        avatarContainer.querySelector('#avatarVideo').play();
+                    });
+                    
+                    audioPlayer.addEventListener('ended', function() {
+                        avatarContainer.classList.remove('talking');
+                        avatarContainer.querySelector('#avatarVideo').pause();
+                        
+                        // Eliminar el archivo de audio después de reproducirlo
+                        eliminarAudio(url).then(resolve).catch(reject);
+                    });
+                    
+                    audioPlayer.onerror = (e) => {
+                        console.error("Error al reproducir audio:", e);
+                        reject(e);
+                    };
+                    
+                    audioPlayer.play().catch(reject);
+                });
+            }
+
+            async function eliminarAudio(url) {
+                try {
+                    // Extraer el nombre del archivo de la URL
+                    const archivo = url.split('/audio/')[1];
+                    
+                    const response = await fetch('/eliminar_audio', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            archivo: `/static/audio/${archivo}`
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        console.log('Audio eliminado:', data.mensaje);
+                    } else {
+                        console.error('Error al eliminar audio:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error al intentar eliminar audio:', error);
+                }
+            }
+            
+            micButton.addEventListener('click', toggleSpeechRecognition);
+            
+            presentacionInicial();
+            const starsContainer = document.getElementById('stars');
+        const starCount = 100;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('span');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${5 + Math.random() * 10}s`);
+            star.style.opacity = Math.random() * 0.5 + 0.1;
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+        
+       
+        });
+        // Agregar funcionalidad al botón de regreso
+document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '/Matematicas';
+});
+    </script>
+</body>
+</html>

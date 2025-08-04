@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión Espacial: Aprende los Números</title>
+    <link rel="stylesheet" href="/static/css/MiniJuego1al10.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="space-background">
+            <!-- Efectos de fondo espacial -->
+            <div class="stars"></div>
+            <div class="twinkling"></div>
+            <div class="comet" style="top: 15%; left: -50px; animation-delay: 2s;"></div>
+            <div class="comet" style="top: 30%; right: -50px; animation-delay: 7s; animation-direction: reverse;"></div>
+            
+            <!-- Avatar interactivo -->
+            <div class="avatar-container" id="avatarContainer">
+                <img id="avatarImage" src="/static/Image/Astronauta-Mujer.jpeg" alt="Astronauta Guía">
+                <video id="avatarVideo" loop muted playsinline>
+                    <source src="/static/Image/Atronauta-Mujer-Video.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            
+            <!-- Elementos decorativos espaciales -->
+            <div class="floating-planet"></div>
+            <div class="space-debris"></div>
+            
+            <!-- Cabecera del juego -->
+            <div class="game-header">
+                <h1><i class="fas fa-rocket"></i> Misión-Espacial-Numérica</h1>
+                <p class="subtitle">Aprende los Números del 1 al 10</p>
+            </div>
+            
+            <!-- Contenido principal del juego -->
+            <div class="game-content">
+                
+                <!-- Información del juego -->
+                <div class="game-info">
+                    <p id="gameInstruction"><i class="fas fa-satellite-dish"></i> Presiona "Iniciar Misión" para comenzar</p>
+                    <div class="score-display">
+                        <i class="fas fa-star"></i> Aciertos: <span id="score">0</span>
+                    </div>
+                </div>
+                
+                <!-- Área de juego con tarjetas numéricas -->
+                <div class="game-area" id="gameArea">
+                    <!-- Las tarjetas de números se generarán con JavaScript -->
+                </div>
+                
+                <!-- Mensajes de feedback -->
+                <div class="feedback-message" id="feedbackMessage"></div>
+                
+                <!-- Personaje principal animado -->
+                <div class="character-container" style="visibility: hidden;">
+                    <img src="{{ url_for('static', filename='Matematicas/images/astronaut.png') }}" 
+                         alt="Astronauta Amigable" class="teacher-character" id="teacherCharacter">
+                </div>
+                
+                <!-- Controles del juego -->
+                <div class="action-buttons">
+                    <button class="action-button" id="btnReplay">
+                        <i class="fas fa-redo"></i> Repetir Número
+                    </button>
+                    <button class="action-button pulse" id="btnNext">
+                        <i class="fas fa-rocket"></i> Iniciar Misión
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Footer decorativo -->
+            <div class="game-footer">
+                <div class="space-station"></div>
+                <div class="alien-ship"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Elementos de audio -->
+    <audio id="audioPlayer"></audio>
+    <audio id="numberAudioPlayer"></audio>
+    <!-- Agrega esto junto con los otros elementos de audio -->
+    <audio id="ttsAudio" hidden></audio>
+    
+    <!-- Scripts -->
+    <script src="/static/js/MiniJuego1al10.js"></script>
+    
+    <!-- CSS para animaciones dinámicas -->
+    <style id="dynamicAnimations"></style>
+    <!-- Botón de regreso -->
+<button id="backButton" style="position: fixed; bottom: 20px; left: 20px; padding: 10px 20px; 
+background-color: #64ffda; color: #0a192f; border: none; border-radius: 5px; 
+cursor: pointer; font-size: 16px; z-index: 1000;">
+<i class="fas fa-arrow-left"></i> Regresar
+</button>
+</body>
+<script>
+
+    // Agregar funcionalidad al botón de regreso
+document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '/Matematicas';
+});
+</script>
+</html>

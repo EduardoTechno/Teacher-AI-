@@ -1,0 +1,592 @@
+/* Variables de diseño avanzado */
+:root {
+    /* Colores temáticos */
+    --color-primario: #6e45e2;
+    --color-secundario: #88d3ce;
+    --color-acento: #ff7e5f;
+    --color-fondo: #0f0c29;
+    --color-texto: #ffffff;
+    --color-borde: rgba(255, 255, 255, 0.1);
+    
+    /* Sombras */
+    --sombra-btn: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --sombra-btn-hover: 0 8px 25px rgba(0, 0, 0, 0.3);
+    --sombra-panel: 0 10px 50px rgba(0, 0, 0, 0.5);
+    
+    /* Transiciones */
+    --transicion-rapida: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transicion-media: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    --transicion-lenta: all 0.8s cubic-bezier(0.17, 0.67, 0.24, 1);
+}
+
+/* Estructura base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Neue', cursive;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url("/static/Image/continentes.jpg");
+    background-size: cover;         /* Hace que cubra toda la pantalla */
+    background-repeat: no-repeat;   /* Evita que se repita */
+    background-position: center;    /* La centra */
+}
+
+.universo {
+    position: relative;
+    min-height: 100vh;
+    background: 
+        radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%),
+        url('../img/fondo-espacio.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Efecto de partículas */
+#efecto-particulas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particula {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: brillo-particula 4s infinite alternate;
+}
+
+@keyframes brillo-particula {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.8; }
+}
+
+/* Contenedor principal */
+.contenedor-espacial {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    z-index: 10;
+}
+
+.contenido-principal {
+    background: rgba(15, 12, 41, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    padding: 3rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-borde);
+    overflow: hidden;
+}
+
+/* Títulos */
+.titulo-container {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.titulo-misiones {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.5rem;
+    color: var(--color-secundario);
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 0 20px rgba(136, 211, 206, 0.4);
+}
+
+.texto-titulo {
+    position: relative;
+    z-index: 2;
+}
+
+.efecto-titulo {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(circle, var(--color-primario) 0%, transparent 70%);
+    z-index: 1;
+    opacity: 0.3;
+    filter: blur(20px);
+    animation: pulso-titulo 6s infinite alternate;
+}
+
+@keyframes pulso-titulo {
+    0% { transform: scale(0.95); opacity: 0.2; }
+    100% { transform: scale(1.05); opacity: 0.4; }
+}
+
+.subrayado-titulo {
+    height: 4px;
+    width: 200px;
+    background: linear-gradient(to right, transparent, var(--color-acento), transparent);
+    margin: 1rem auto 0;
+    border-radius: 50%;
+    animation: subrayado-animacion 8s infinite alternate;
+}
+
+@keyframes subrayado-animacion {
+    0% { width: 200px; }
+    50% { width: 300px; }
+    100% { width: 200px; }
+}
+
+.subtitulo {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    position: relative;
+}
+
+/* Galaxia de niveles */
+.galaxia-niveles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Botones de nivel ultra personalizables */
+.btn-nivel {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transicion-media);
+    border: none;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: var(--sombra-btn);
+    z-index: 1;
+    background: radial-gradient(circle at center, var(--btn-color-light), var(--btn-color-dark));
+    transform-style: preserve-3d;
+}
+
+.btn-nivel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: var(--transicion-rapida);
+    z-index: -1;
+}
+
+.btn-nivel:hover {
+    transform: scale(1.1) rotateY(15deg);
+    box-shadow: var(--sombra-btn-hover);
+}
+
+.btn-nivel:hover::before {
+    opacity: 1;
+}
+
+.btn-nivel .numero-nivel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    transition: var(--transicion-rapida);
+}
+
+.btn-nivel .texto-nivel {
+    font-size: 0.9rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transicion-media);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.btn-nivel:hover .numero-nivel {
+    transform: translateY(-10px);
+}
+
+.btn-nivel:hover .texto-nivel {
+    opacity: 1;
+    max-height: 50px;
+    margin-top: 0.5rem;
+}
+
+/* Efecto de anillos para algunos botones */
+.btn-nivel.anillos::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: rotate(20deg);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Efecto de selección */
+.btn-nivel.seleccionado {
+    transform: scale(1.15);
+    box-shadow: 
+        0 0 0 3px white,
+        0 0 30px var(--btn-color-light);
+    animation: pulso-seleccionado 2s infinite;
+}
+
+@keyframes pulso-seleccionado {
+    0%, 100% { box-shadow: 0 0 0 3px white, 0 0 30px var(--btn-color-light); }
+    50% { box-shadow: 0 0 0 5px white, 0 0 50px var(--btn-color-light); }
+}
+
+/* Panel de misión */
+.panel-mision {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 800px;
+    background: rgba(20, 15, 50, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 2rem;
+    padding: 3rem;
+    box-shadow: var(--sombra-panel);
+    border: 1px solid rgba(110, 69, 226, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transicion-lenta);
+    overflow: hidden;
+}
+
+.panel-mision.mostrar {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.panel-mision::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(110, 69, 226, 0.1), transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Contenido del panel */
+.contenido-mision {
+    position: relative;
+    z-index: 2;
+}
+
+.header-mision {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.badge-nivel {
+    display: inline-block;
+    background: linear-gradient(to right, var(--color-primario), var(--color-acento));
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+}
+
+#titulo-mision {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: var(--color-secundario);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.decoracion-orbita {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 100px;
+    border: 2px dashed rgba(136, 211, 206, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+    animation: rotacion-orbita 30s linear infinite;
+}
+
+@keyframes rotacion-orbita {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.descripcion-mision {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    border-left: 4px solid var(--color-acento);
+}
+
+.acciones-mision {
+    text-align: center;
+}
+
+.btn-mision {
+    position: relative;
+    background: linear-gradient(45deg, var(--color-primario), var(--color-acento));
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 3rem;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transicion-media);
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(110, 69, 226, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.btn-mision:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(110, 69, 226, 0.7);
+}
+
+.btn-mision:active {
+    transform: translateY(0);
+}
+
+.efecto-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%);
+    transition: var(--transicion-media);
+}
+
+.btn-mision:hover .efecto-btn {
+    transform: translateX(100%);
+}
+
+.icono-btn {
+    font-size: 1.5rem;
+    transition: var(--transicion-rapida);
+}
+
+.btn-mision:hover .icono-btn {
+    transform: translateX(5px);
+}
+
+.texto-btn {
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón cerrar */
+.btn-cerrar-panel {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 126, 95, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-cerrar-panel:hover {
+    background: rgba(255, 126, 95, 0.4);
+    transform: rotate(90deg);
+}
+
+.linea-cerrar {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: white;
+}
+
+.linea-cerrar:first-child {
+    transform: rotate(45deg);
+}
+
+.linea-cerrar:last-child {
+    transform: rotate(-45deg);
+}
+
+/* Botón regresar */
+.btn-regresar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    margin-top: 3rem;
+    transition: var(--transicion-media);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-regresar:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+    padding-left: 2.2rem;
+    padding-right: 1.4rem;
+}
+
+.icono-regresar {
+    transition: var(--transicion-rapida);
+}
+
+.btn-regresar:hover .icono-regresar {
+    transform: translateX(-5px);
+}
+
+.texto-regresar {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-regresar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: var(--transicion-media);
+}
+
+.btn-regresar:hover::before {
+    transform: translateX(100%);
+}
+
+/* Efectos especiales */
+@keyframes efectoDestello {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.efecto-destello {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: efectoDestello 0.8s ease-out forwards;
+    z-index: 5;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .galaxia-niveles {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .titulo-misiones {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenido-principal {
+        padding: 2rem;
+    }
+    
+    .galaxia-niveles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .titulo-misiones {
+        font-size: 2.4rem;
+    }
+    
+    .panel-mision {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .contenido-principal {
+        padding: 1.5rem;
+    }
+    
+    .galaxia-niveles {
+        grid-template-columns: 1fr;
+    }
+    
+    .titulo-misiones {
+        font-size: 2rem;
+    }
+    
+    .btn-nivel {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .btn-nivel .numero-nivel {
+        font-size: 2rem;
+    }
+    
+    .panel-mision {
+        padding: 1.5rem;
+    }
+    
+    #titulo-mision {
+        font-size: 1.8rem;
+    }
+    
+    .descripcion-mision {
+        font-size: 1rem;
+    }
+}

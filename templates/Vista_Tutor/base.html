@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Virtual - Emily</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+        font-family: 'Comic Neue', cursive, sans-serif;
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-align: center;
+        position: relative;
+        /* Nuevo fondo espacial */
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        overflow: hidden;
+    }
+
+    /* Estrellas animadas */
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+
+    .stars::before, .stars::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        animation: twinkle var(--duration) infinite ease-in-out;
+    }
+
+    .stars::before {
+        top: 20%;
+        left: 30%;
+        --duration: 5s;
+    }
+
+    .stars::after {
+        top: 60%;
+        left: 70%;
+        --duration: 7s;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+
+    /* Crear múltiples estrellas */
+    .stars span {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        animation: twinkle var(--duration) infinite ease-in-out;
+    }
+
+    /* Planeta decorativo */
+    .planet {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #3a5a78, #1e3a5f, #0a192f);
+        box-shadow: inset -20px -20px 40px rgba(0, 0, 0, 0.5),
+                    0 0 50px rgba(100, 255, 218, 0.3);
+        right: -100px;
+        bottom: -100px;
+        z-index: -1;
+        animation: planet-rotate 60s infinite linear;
+    }
+
+    @keyframes planet-rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* Efecto de nebulosa */
+    .nebula {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, 
+                    rgba(100, 255, 218, 0.1) 0%, 
+                    rgba(100, 255, 218, 0) 40%),
+                    radial-gradient(circle at 80% 70%, 
+                    rgba(255, 100, 218, 0.1) 0%, 
+                    rgba(255, 100, 218, 0) 40%);
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+    /* Cohetes decorativos */
+    .rocket {
+        position: absolute;
+        width: 40px;
+        height: 80px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12,2.5c0,0,4.5,2.04,4.5,10.5c0,2.49-1.04,5.57-1.6,7H9.1c-0.56-1.43-1.6-4.51-1.6-7C7.5,4.54,12,2.5,12,2.5z M13,15.5h-2v-2h2V15.5z M13,12.5h-2v-5h2V12.5z"/></svg>') no-repeat center;
+        background-size: contain;
+        filter: drop-shadow(0 0 5px rgba(100, 255, 218, 0.8));
+        animation: fly var(--duration) linear infinite;
+        opacity: 0.7;
+    }
+
+    @keyframes fly {
+        0% { transform: translate(var(--start-x), var(--start-y)) scale(0.5); opacity: 0; }
+        10% { opacity: 0.7; }
+        90% { opacity: 0.7; }
+        100% { transform: translate(var(--end-x), var(--end-y)) scale(0.5); opacity: 0; }
+    }
+
+    /* Actualización del avatar para que combine con el tema espacial */
+    .avatar-container {
+        border: 5px solid #64ffda;
+        box-shadow: 0 0 30px rgba(100, 255, 218, 0.5),
+                    0 0 60px rgba(100, 255, 218, 0.3),
+                    0 0 90px rgba(100, 255, 218, 0.1);
+    }
+
+    /* Actualización del botón de micrófono */
+    .mic-button {
+        background-color: #64ffda;
+        color: #0a192f;
+        box-shadow: 0 0 15px rgba(100, 255, 218, 0.7),
+                    0 0 30px rgba(100, 255, 218, 0.3);
+    }
+
+    .mic-button.listening {
+        background-color: #ff4d4d;
+        box-shadow: 0 0 15px rgba(255, 77, 77, 0.7),
+                    0 0 30px rgba(255, 77, 77, 0.3);
+    }
+        
+        .imagen-fondo2 {
+            position: absolute;
+            top: 5%;
+            left: 8%;
+            width: 85%;
+            height: 90%;
+            z-index: -1;
+        }
+        
+        .avatar-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            margin-top: 8%;
+            border: 5px solid #ff6464;
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+            overflow: hidden;
+            transition: all 1s ease-in-out;
+            transform: translate(-50%, -50%);
+        }
+
+        .avatar-presentacion {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .avatar-activo {
+            left: 125px;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            100% { transform: translate(-50%, -50%) translateY(0px); }
+        }
+
+        #avatarImage, #avatarVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        #avatarVideo {
+            opacity: 0;
+        }
+
+        .talking #avatarVideo {
+            opacity: 1;
+        }
+
+        .talking #avatarImage {
+            opacity: 0;
+        }
+        
+        .mic-button {
+            position: absolute;
+            bottom: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ffbe64;
+            color: #0a192f;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(255, 100, 100, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s ease 3s;
+        }
+        .mic-button.disabled {
+    background-color: #f40e0e;
+    cursor: not-allowed;
+    animation: none;
+    position: absolute;
+    bottom: 20px;
+    width: 100px;
+    height: 100px;
+    opacity: 0.7;
+}
+
+.mic-button.disabled::after {
+    content: "";
+    position: absolute;
+    
+     bottom: 20px;
+    width: 100px;
+    height: 100px;
+   
+    background-size: 20px 20px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.5; }
+}
+        
+        .mic-button.visible {
+            opacity: 1;
+        }
+        
+        .mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(100, 255, 218, 0.7);
+        }
+        
+        .mic-button:active {
+            transform: scale(0.95);
+        }
+        
+        .mic-button.listening {
+            background-color: #ff4d4d;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 77, 77, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+        }
+        
+        .status-message {
+            position: absolute;
+            bottom: 110px;
+            width: 80%;
+            text-align: center;
+            font-size: 18px;
+            color: #ffffff;
+            background: rgba(10, 25, 47, 0.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #64ffda;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .status-message.visible {
+            opacity: 1;
+        }
+        
+        .voice-transcript {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 3px solid #64ffda;
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .voice-transcript.visible {
+            opacity: 1;
+        }
+        
+        .voice-transcript .label {
+            font-weight: bold;
+            color: #64ffda;
+            margin-bottom: 5px;
+        }
+
+        /* Div con bordes azules (nuevo elemento agregado) */
+        .borde-azul {
+    position: absolute;
+    margin-top: 5%;
+    width: 1000px;
+    height: 385px;
+    /*border: 5px solid #64ffda;*/
+    border-radius: 10px;
+    /*box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);*/
+    padding: 20px;
+   /* background-color: rgba(0, 0, 0, 0.6);*/
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    overflow-y: auto;  /* Habilita scroll vertical */
+    overflow-x: hidden;
+}
+
+        
+        .borde-rojo {
+            position: absolute;
+            margin-bottom: 28%;
+            width: 1000px;
+            height: 100px;
+            /*border: 5px solid #ff4d4d;*/
+            border-radius: 10px;
+            /*box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*background-color: rgba(0, 0, 0, 0.7);*/
+            padding: 15px;
+        }
+        
+        /* Estilo de pizarra para el texto */
+        .texto-pizarra {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 6.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: escribir 0.5s steps(40) forwards;
+            white-space: pre-wrap;
+            overflow: hidden;
+            max-width: 90%;
+            text-decoration: underline; 
+        }
+        
+        @keyframes escribir {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        /* Estilo para los ejemplos */
+        .ejemplo-pizarra {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+          /*  background-color: rgba(0, 0, 0, 0.5);*/
+            padding: 15px;
+            border-radius: 8px;
+            /*border: 2px dashed #64ffda;*/
+            max-width: 90%;
+            margin-bottom: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="planet"></div>
+    <img src="/static/Image/Planeta_Numeros/Pizarra.png" alt="Fondo" class="imagen-fondo2">
+    
+    <div class="avatar-container avatar-presentacion" id="avatarContainer">
+        <img id="avatarImage" src="/static/Image/Astronauta-Mujer.jpeg" alt="Avatar del Profe Raúl">
+        <video id="avatarVideo" loop muted playsinline>
+            <source src="/static/Image/Atronauta-Mujer-Video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Div con bordes rojo (titulo) agregado -->
+    <div class="borde-rojo" id="texto">
+        <div class="texto-pizarra" id="textoPizarra"></div>
+    </div>
+
+    <!-- Div con bordes azules ejemplo agregado -->
+    <div class="borde-azul" id="ejemplos">
+        <div class="ejemplo-pizarra" id="ejemploPizarra"></div>
+    </div>
+    
+    <div class="voice-transcript" id="voiceTranscript">
+        <div class="label">Dijiste:</div>
+        <div id="transcriptText"></div>
+    </div>
+    
+    <button class="mic-button" id="micButton">
+        <i class="fas fa-microphone"></i>
+    </button>
+    
+    <div class="status-message" id="statusMessage"></div>
+    
+    <audio id="audioPlayer"></audio>
+    <!-- Botón de regreso -->
+<button id="backButton" style="position: fixed; bottom: 20px; left: 20px; padding: 10px 20px; 
+background-color: #64ffda; color: #0a192f; border: none; border-radius: 5px; 
+cursor: pointer; font-size: 16px; z-index: 1000;">
+<i class="fas fa-arrow-left"></i> Regresar
+</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarContainer = document.getElementById('avatarContainer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const micButton = document.getElementById('micButton');
+            const statusMessage = document.getElementById('statusMessage');
+            const voiceTranscript = document.getElementById('voiceTranscript');
+            const transcriptText = document.getElementById('transcriptText');
+            const textoPizarra = document.getElementById('textoPizarra');
+            const ejemploPizarra = document.getElementById('ejemploPizarra');
+            
+            let recognition;
+            let isListening = false;
+            
+            const PERSONALIDAD_MATEMATICAS = `
+            YA NO ENSEÑARAS LOS NUMEROS DEL 1 AL 10
+            AHORA SOLAMENTE VAS A ENSEÑAR SUMAS Y RESTAS, SOLAMENTE SUMAS Y RESTAS:
+          🎓 Personalidad y comportamiento del tutor virtual: Emily
+                🧱 FORMATO DE RESPUESTA (ESTRUCTURA FIJA – NO CAMBIAR)
+TODA respuesta generada DEBE tener esta estructura textual exacta NUNCA LO OLVIDES :
+
+[título del tema (maximo 6 palabras)] || [lo que vas a decir]
+
+Ejemplo de formato válido:
+sumando manzanas || Imagina que tienes 2 manzanas rojas 🍎🍎. Si te doy una manzana verde 🍏, ¿puedes decirme cuántas tienes ahora? ¡Tú puedes hacerlo!
+// 🍎🍎+🍏=?  
+2+1=? //
+
+Perfil del tutor:
+Eres una tutora llamada Emily, especializada en enseñar a niños de primer grado de primaria.
+Tu tono siempre debe ser amable, paciente, claro, motivador y alegre.
+Tu objetivo es que el niño aprenda a sumar desde cero, siguiendo un proceso pedagógico:
+
+🧠 Enfoque pedagógico obligatorio (etapas)
+2. Ejemplos resueltos → Da ejemplos claros con emojis y respuestas numéricas.
+3. Ejercicios guiados → Haz preguntas al niño con ejemplos visuales, pero sin dar la respuesta.
+4. Retroalimentación → Si el niño responde, analiza si es correcto y felicítalo o ayúdalo.
+
+
+
+🎯 Reglas estrictas para los ejemplos
+
+1. Si das una explicación con la respuesta, muestra el resultado:
+// 🍎+🍎=🍎🍎, (salto de linea)  
+1+1=2 //
+
+2. Si haces una pregunta al niño, NO des la respuesta:
+// 🍌+🍌=?,  (salto de linea)
+2+2=? //
+
+3. Siempre termina tus explicaciones con el bloque de ejemplo visual // ... // 
+
+4. Si el niño dice su nombre, respóndele amablemente y pregúntale si está listo para aprender.
+
+✨ Estilo de comunicación
+- Frases simples y cortas (máx. 50 palabras).
+- Usa entre 3 y 7 oraciones por mensaje.
+- Anima siempre al niño:
+  Ejemplos:
+  - "¿Quieres que hagamos otra suma?"
+  - "¡Lo estás haciendo muy bien!"
+  - "¿Te gustaría intentarlo tú ahora?"
+
+✅ EJEMPLOS CORRECTOS
+
+🔹 Cuando haces una pregunta:
+sumando manzanas || Imagina que tienes 2 manzanas rojas 🍎🍎. Si te doy una manzana verde 🍏, ¿puedes decirme cuántas tienes ahora? ¡Tú puedes hacerlo!
+// 🍎🍎+🍏=?  
+2+1=? //
+
+🔹 Cuando das la respuesta:
+aprendiendo a sumar || Hoy te enseñaré a sumar. Si tienes 1 manzana 🍎 y te dan otra 🍎, juntas tienes 2 manzanas. Así se ve:
+// 🍎+🍎=🍎🍎  
+1+1=2 //
+
+📌 Recordatorio final
+Después de cada explicación o pregunta, SIEMPRE usa el formato:
+[título del tema (maximo 6 palabras)] || [contenido con ejemplo visual entre // //]
+No lo modifiques.
+            `;
+            
+            function initSpeechRecognition() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                
+                if (SpeechRecognition) {
+                    recognition = new SpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    recognition.lang = 'es-ES';
+                    
+                    recognition.onstart = () => {
+                        isListening = true;
+                        micButton.classList.add('listening');
+                        micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                        showStatusMessage("Escuchando... 🎤");
+                    };
+                    
+                    recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    showTranscript(transcript);
+    stopSpeechRecognition(); // Desactivar micrófono inmediatamente
+    enviarMensajeVoz(transcript);
+};
+                    
+                    recognition.onerror = (event) => {
+                        console.error('Error en reconocimiento de voz:', event.error);
+                        stopSpeechRecognition();
+                        showStatusMessage("No pude entenderte. Intenta de nuevo.");
+                        setTimeout(() => hideStatusMessage(), 3000);
+                    };
+                    
+                    recognition.onend = () => {
+                        if (isListening) {
+                            recognition.start();
+                        }
+                    };
+                } else {
+                    micButton.disabled = true;
+                    micButton.title = 'Reconocimiento de voz no soportado en este navegador';
+                    showStatusMessage("Tu navegador no soporta reconocimiento de voz");
+                }
+            }
+            
+            let isTutorSpeaking = false;
+
+// Modifica la función toggleSpeechRecognition
+function toggleSpeechRecognition() {
+    if (isTutorSpeaking) {
+        return; // No hacer nada si el tutor está hablando
+    }
+    
+    if (!recognition) {
+        initSpeechRecognition();
+    }
+    
+    if (isListening) {
+        stopSpeechRecognition();
+    } else {
+        recognition.start();
+    }
+}
+            
+function stopSpeechRecognition() {
+    isListening = false;
+    micButton.classList.remove('listening');
+    micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+    
+    // Desactivar después de 3 segundos de silencio
+    setTimeout(() => {
+        if (recognition) recognition.stop();
+        hideStatusMessage();
+    }, 5000);
+}
+            
+            function showStatusMessage(message) {
+                statusMessage.textContent = message;
+                statusMessage.classList.add('visible');
+            }
+            
+            function hideStatusMessage() {
+                statusMessage.classList.remove('visible');
+            }
+            
+            function showTranscript(text) {
+                transcriptText.textContent = text;
+                voiceTranscript.classList.add('visible');
+                
+                setTimeout(() => {
+                    voiceTranscript.classList.remove('visible');
+                }, 5000);
+            }
+            
+            function mostrarTextoDividido(respuesta) {
+    // Limpiar contenido anterior
+    textoPizarra.textContent = '';
+    ejemploPizarra.innerHTML = '';
+    
+    // Separar título y mensaje
+    const partes = respuesta.split('||').map(part => part.trim());
+    const titulo = partes.length > 0 ? partes[0] : '';
+    let mensaje = partes.length > 1 ? partes[1] : '';
+
+    // Mostrar título con efecto de escritura
+    let i = 0;
+    const velocidadEscritura = 30;
+
+    function escribirCaracter() {
+        if (i < titulo.length) {
+            textoPizarra.textContent += titulo.charAt(i);
+            i++;
+            setTimeout(escribirCaracter, velocidadEscritura);
+        }
+    }
+
+    escribirCaracter();
+
+    // Procesar mensaje principal
+    if (mensaje) {
+        const partesMensaje = mensaje.split(/(\/\/.*?\/\/)/gs);
+        let delayAcumulado = 2000;
+
+        partesMensaje.forEach(parte => {
+            if (parte.startsWith('//') && parte.endsWith('//')) {
+                // Extraer contenido entre //...//
+                const contenido = parte.slice(2, -2).trim();
+
+                // Crear contenedor estilizado
+                const diagonalContainer = document.createElement('div');
+                diagonalContainer.style.fontSize = '4.5rem';
+                diagonalContainer.style.fontWeight = 'bold';
+                diagonalContainer.style.color = '#64ffda';
+                diagonalContainer.style.lineHeight = '1.2';
+                diagonalContainer.style.whiteSpace = 'pre-line'; // Respeta los saltos
+                ejemploPizarra.appendChild(diagonalContainer);
+
+                // Dividir por líneas
+                const lineas = contenido.replace(/\?/g, '?\n').split('\n');
+                let lineaIndex = 0;
+
+                function escribirLinea() {
+                    if (lineaIndex < lineas.length) {
+                        const linea = lineas[lineaIndex];
+                        const spanLinea = document.createElement('span');
+                        spanLinea.style.display = 'block';
+                        diagonalContainer.appendChild(spanLinea);
+
+                        let charIndex = 0;
+
+                        function escribirCaracterLinea() {
+                            if (charIndex < linea.length) {
+                                spanLinea.innerHTML += linea.charAt(charIndex);
+                                charIndex++;
+                                setTimeout(escribirCaracterLinea, 50);
+                            } else {
+                                lineaIndex++;
+                                setTimeout(escribirLinea, 200); // Pequeña pausa entre líneas
+                            }
+                        }
+
+                        escribirCaracterLinea();
+                    }
+                }
+
+                setTimeout(escribirLinea, delayAcumulado);
+                delayAcumulado += contenido.length * 50 + lineas.length * 200;
+
+            } else if (parte.trim() !== '') {
+                // Texto fuera de //
+                const span = document.createElement('span');
+                span.innerHTML = parte.replace(/\n/g, '<br>');
+                span.style.fontSize = '1.8rem';
+                ejemploPizarra.appendChild(span);
+            }
+        });
+    }
+
+    return mensaje;
+}
+
+            
+            async function presentacionInicial() {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const mensajeBienvenida = "¡Bienvenido! || Hola astronauta! Soy la tutora Emily. Prepárate para aprender matemáticas, ¿con quien tengo el gusto?.";
+                const mensajeParaAudio = mostrarTextoDividido(mensajeBienvenida);
+                await reproducirTexto(mensajeParaAudio);
+                
+                avatarContainer.classList.remove('avatar-presentacion');
+                avatarContainer.classList.add('avatar-activo');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                micButton.classList.add('visible');
+                
+                const mensajeInicio = "Instrucciones || Presiona el micrófono cuando quieras hablar conmigo. Hoy aprenderemos sumas y restas. ¿Qué quieres practicar?";
+                const mensajeInicioAudio = mostrarTextoDividido(mensajeInicio);
+                await reproducirTexto(mensajeInicioAudio);
+            }
+            
+            async function enviarMensajeVoz(mensaje) {
+                showStatusMessage("Emily está pensando...");
+                
+                try {
+                    const response = await fetch('/enviar_mensaje', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            mensaje: mensaje,
+                            personalidad: PERSONALIDAD_MATEMATICAS
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.respuesta) {
+                        showStatusMessage("Emily está respondiendo...");
+                        // Dividir la respuesta y obtener solo el mensaje para el audio
+                        const mensajeParaAudio = mostrarTextoDividido(data.respuesta);
+                        await reproducirTexto(mensajeParaAudio);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showStatusMessage("¡Ups! Algo salió mal. Intenta nuevamente.");
+                } finally {
+                    setTimeout(() => hideStatusMessage(), 2000);
+                }
+            }
+            
+            async function reproducirTexto(texto) {
+                try {
+                    const audioUrl = await generarAudio(texto);
+                    if (audioUrl) {
+                        await reproducirAudio(audioUrl);
+                    }
+                } catch (error) {
+                    console.error("Error al reproducir texto:", error);
+                }
+            }
+            
+            async function generarAudio(texto) {
+    try {
+        // Filtrar el texto para eliminar lo que está entre //
+        const textoFiltrado = texto.replace(/\/\/.*?\/\//gs, '').trim();
+        
+        const nombreArchivo = `audio_${Date.now()}.wav`;
+        const res = await fetch('/generar_audio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                texto: textoFiltrado,  // Usar el texto filtrado en lugar del original
+                nombre_archivo: nombreArchivo 
+            })
+        });
+        const data = await res.json();
+        return data.audio_path || null;
+    } catch (e) {
+        console.error("Error al generar audio:", e);
+        return null;
+    }
+}
+            
+            // Modifica la función reproducirAudio
+async function reproducirAudio(url) {
+    return new Promise((resolve, reject) => {
+        // Bloquear el micrófono
+        isTutorSpeaking = true;
+        micButton.classList.add('disabled');
+        micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+        
+        audioPlayer.src = url;
+        
+        audioPlayer.addEventListener('play', function() {
+            avatarContainer.classList.add('talking');
+            avatarContainer.querySelector('#avatarVideo').play();
+        });
+        
+        audioPlayer.addEventListener('ended', function() {
+            avatarContainer.classList.remove('talking');
+            avatarContainer.querySelector('#avatarVideo').pause();
+            
+            // Desbloquear el micrófono después de un pequeño retraso
+            setTimeout(() => {
+                isTutorSpeaking = false;
+                micButton.classList.remove('disabled');
+                micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+            }, 500);
+            
+             // Eliminar el archivo de audio después de reproducirlo
+             eliminarAudio(url).then(resolve).catch(reject);
+        });
+        
+        audioPlayer.onerror = (e) => {
+            console.error("Error al reproducir audio:", e);
+            isTutorSpeaking = false;
+            micButton.classList.remove('disabled');
+            micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+            reject(e);
+        };
+        
+        audioPlayer.play().catch(reject);
+    });
+}
+async function eliminarAudio(url) {
+                try {
+                    // Extraer el nombre del archivo de la URL
+                    const archivo = url.split('/audio/')[1];
+                    
+                    const response = await fetch('/eliminar_audio', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            archivo: `/static/audio/${archivo}`
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        console.log('Audio eliminado:', data.mensaje);
+                    } else {
+                        console.error('Error al eliminar audio:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error al intentar eliminar audio:', error);
+                }
+            }
+            micButton.addEventListener('click', toggleSpeechRecognition);
+            
+            presentacionInicial();
+            const starsContainer = document.getElementById('stars');
+        const starCount = 100;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('span');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${5 + Math.random() * 10}s`);
+            star.style.opacity = Math.random() * 0.5 + 0.1;
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+        });
+        // Agregar funcionalidad al botón de regreso
+document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '/Matematicas';
+});
+    </script>
+</body>
+</html>

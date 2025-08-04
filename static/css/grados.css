@@ -1,0 +1,109 @@
+:root {
+    --primary: #6c5ce7;
+    --secondary: #00cec9;
+    --yellow: #ffeaa7;
+    --pink: #fd79a8;
+    --green: #55efc4;
+    --dark: #2d3436;
+    --light: #f5f6fa;
+}
+
+/* Estilos base iguales a style.css */
+
+.grade-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 3rem 0;
+    width: 100%;
+}
+
+.grade-card {
+    background: rgba(45, 52, 54, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 300px;
+    min-height: 350px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--green);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.grade-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 206, 201, 0.3);
+    border-color: var(--yellow);
+}
+
+.grade-card h2 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--yellow);
+    margin: 1rem 0;
+    font-size: 1.8rem;
+}
+
+.grade-card p {
+    color: var(--light);
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.planet-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+.rocket {
+    font-size: 2rem;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: rotate(-45deg);
+}
+
+.grade-card:hover .rocket {
+    opacity: 1;
+    transform: rotate(0deg);
+    animation: rocket-move 2s infinite alternate;
+}
+
+@keyframes rocket-move {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-10px) rotate(0deg); }
+}
+
+.back-button {
+    background: rgba(253, 121, 168, 0.2);
+    color: var(--light);
+    border: 2px solid var(--pink);
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+    font-family: 'Fredoka One', cursive;
+    backdrop-filter: blur(5px);
+}
+
+.back-button:hover {
+    background: rgba(253, 121, 168, 0.4);
+    transform: translateY(-3px);
+}
+
+/* Resto de animaciones y estilos responsive similares a style.css */

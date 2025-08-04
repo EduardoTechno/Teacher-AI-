@@ -1,0 +1,309 @@
+:root {
+  --primary: #6c5ce7;
+  --secondary: #00cec9;
+  --yellow: #ffeaa7;
+  --pink: #fd79a8;
+  --green: #55efc4;
+  --dark: #2d3436;
+  --light: #f5f6fa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Comic Neue', cursive;
+  background-color: #0f0f1a;
+  color: var(--light);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  background-image: 
+      radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration, 5s) infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--pink), 5px 5px 0 rgba(0, 0, 0, 0.2);
+  animation: bounce 2s infinite alternate;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--green);
+  font-family: 'Fredoka One', cursive;
+  text-shadow: 2px 2px 0 var(--primary);
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px var(--green), 2px 2px 0 var(--primary); }
+  100% { text-shadow: 0 0 20px var(--green), 2px 2px 0 var(--primary); }
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  line-height: 1.5;
+  color: var(--light);
+  font-weight: 700;
+}
+
+.alien-character {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 2rem;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="%2300cec9"/><circle cx="256" cy="180" r="40" fill="%232d3436"/><circle cx="210" cy="160" r="15" fill="%23f5f6fa"/><circle cx="300" cy="160" r="15" fill="%23f5f6fa"/><path d="M200 240c-15 0-30 5-40 15v45h180v-45c-10-10-25-15-40-15H200z" fill="%232d3436"/><circle cx="180" cy="120" r="25" fill="%23fd79a8"/><circle cx="320" cy="120" r="25" fill="%23fd79a8"/></svg>');
+  background-size: contain;
+  animation: bounce 2s infinite alternate, float 4s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform 0.3s;
+  filter: drop-shadow(0 0 15px rgba(85, 239, 196, 0.7));
+}
+
+.alien-character:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.start-button {
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  color: white;
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 0 var(--dark), 0 15px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+  font-family: 'Fredoka One', cursive;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+  border: 3px solid var(--yellow);
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 var(--dark), 0 18px 25px rgba(253, 121, 168, 0.4);
+}
+
+.start-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 3px 0 var(--dark), 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: 0.5s;
+}
+
+.start-button:hover::before {
+  left: 100%;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 3rem 0;
+  width: 100%;
+}
+
+.feature {
+  background: rgba(45, 52, 54, 0.7);
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 30%;
+  min-width: 280px;
+  margin: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--green);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+
+.feature:hover {
+  transform: translateY(-10px) rotate(2deg);
+  box-shadow: 0 15px 30px rgba(0, 206, 201, 0.3);
+}
+
+.feature::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--green), var(--pink), var(--yellow));
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: wiggle 3s infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--yellow);
+  font-family: 'Fredoka One', cursive;
+}
+
+.feature-desc {
+  color: var(--light);
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.floating-astronauts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.astronaut {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="%23f5f6fa"/><circle cx="256" cy="180" r="50" fill="%232d3436"/><circle cx="230" cy="160" r="10" fill="%23ffffff"/><circle cx="280" cy="160" r="10" fill="%23ffffff"/><path d="M230 220c-20 0-40 10-50 25v35h150v-35c-10-15-30-25-50-25H230z" fill="%232d3436"/></svg>');
+  background-size: contain;
+  animation: float-astronaut var(--duration, 20s) linear infinite;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px rgba(255, 234, 167, 0.7));
+}
+
+@keyframes float-astronaut {
+  0% {
+      transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+      transform: translate(50px, -50px) rotate(90deg);
+  }
+  50% {
+      transform: translate(100px, 0) rotate(180deg);
+  }
+  75% {
+      transform: translate(50px, 50px) rotate(270deg);
+  }
+  100% {
+      transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+.star-confetti {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFD166" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/></svg>');
+  background-size: contain;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .logo {
+      font-size: 2.5rem;
+  }
+  
+  h1 {
+      font-size: 2.2rem;
+  }
+  
+  .subtitle {
+      font-size: 1.4rem;
+  }
+  
+  .feature {
+      width: 100%;
+      min-width: auto;
+  }
+  
+  .alien-character {
+      width: 150px;
+      height: 150px;
+  }
+}
+    /* Estilo para el video de fondo */
+    #video-fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Cubre toda la pantalla sin deformarse */
+      z-index: -1; /* Lo coloca detrás del resto */
+    }

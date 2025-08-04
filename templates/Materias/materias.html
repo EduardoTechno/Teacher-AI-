@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elige tu Materia Espacial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/materias.css">
+    <link rel="stylesheet" href="/static/css/grados.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- Nuevo: Preconexión para mejorar rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="galaxy-bg" id="galaxyBg">
+        <!-- Nuevo: Capa adicional para efecto de profundidad -->
+        <div class="parallax-layer" data-depth="0.1"></div>
+    </div>
+    
+    <!-- Nuevo: Cohete decorativo -->
+    <div class="floating-rocket">🚀</div>
+    
+    <div class="container">
+        <!-- Mejorado: Logo con efecto especial -->
+        <div class="logo" id="interactiveLogo">AprendeEnElEspacio</div>
+        
+        <!-- Mejorado: Títulos con animación -->
+        <h1 class="title-animate">¡Elige tu Misión Científica!</h1>
+        <p class="subtitle subtitle-animate">Selecciona la materia que quieres explorar hoy</p>
+        
+        <div class="subject-options">
+            <!-- Mejorado: Tarjeta con más elementos interactivos -->
+            <div class="subject-card" data-subject="math">
+                <div class="subject-icon">🧮</div>
+                <div class="subject-content">
+                    <h2>Matemáticas</h2>
+                    <p>Aprende con nuestros desafíos numéricos interestelares</p>
+                    <div class="stars-rating">
+                        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>☆</span>
+                    </div>
+                </div>
+                <div class="planet-ring"></div>
+                <!-- Nuevo: Efecto de halo -->
+                <div class="card-halo"></div>
+            </div>
+            
+            <div class="subject-card" data-subject="language">
+                <div class="subject-icon">📚</div>
+                <div class="subject-content">
+                    <h2>Lengua Materna</h2>
+                    <p>Explora el universo de las palabras y los cuentos</p>
+                    <div class="stars-rating">
+                        <span>⭐</span><span>⭐</span><span>⭐</span><span>☆</span><span>☆</span>
+                    </div>
+                </div>
+                <div class="planet-ring"></div>
+                <div class="card-halo"></div>
+            </div>
+        </div>
+        
+        <!-- Mejorado: Botón con más feedback -->
+        <button class="back-button" id="backButton">
+            <span class="button-icon">←</span>
+            <span class="button-text">Volver a Grados</span>
+        </button>
+    </div>
+
+    <!-- Nuevo: Elemento para efectos especiales -->
+    <div id="effectsContainer"></div>
+
+    <script src="/static/js/materias.js"></script>
+</body>
+</html>

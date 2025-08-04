@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Espacial Educativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+  <!-- Video como fondo -->
+  <video id="video-fondo" autoplay muted loop>
+    <source src="../static/media/space.mp4" type="video/mp4" />
+    Tu navegador no soporta la etiqueta de video.
+  </video>
+    <div id="stars"></div>
+    <div  id="floatingAstronauts"></div>
+    
+    <div class="container">
+        <div class="logo">Aprende En El Espacio</div>
+        <h1>¡Hola, Astronauta!</h1>
+        <p class="subtitle">Prepárate para un viaje interestelar lleno de diversión y aprendizaje con tus amigos del espacio</p>
+        
+        <div id="alienCharacter"></div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Misiones Divertidas</h3>
+                <p class="feature-desc">Aprende resolviendo misiones espaciales llenas de juegos y aventuras.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👽</div>
+                <h3 class="feature-title">Amigo Alienígena</h3>
+                <p class="feature-desc">Tu compañero de otro planeta que te guiará en este viaje de aprendizaje.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🪐</div>
+                <h3 class="feature-title">Premios Estelares</h3>
+                <p class="feature-desc">Gana estrellas, cohetes y planetas por tus logros de aprendizaje.</p>
+            </div>
+        </div>
+        
+        <button class="start-button" id="startButton">¡DESPEGAR!</button>
+    </div>
+    <audio id="welcomeAudio" hidden></audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar un momento para asegurar que el audio esté generado
+    setTimeout(function() {
+        const audio = document.getElementById('welcomeAudio');
+        audio.src = "/audio/welcome.mp3";
+        
+        // Intentar reproducir (puede requerir interacción del usuario)
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                // Mostrar botón si falla la reproducción automática
+                const btn = document.createElement('button');
+                btn.textContent = 'Activar audio de bienvenida';
+                btn.style.position = 'fixed';
+                btn.style.bottom = '20px';
+                btn.style.right = '20px';
+                btn.style.zIndex = '10000';
+                btn.style.padding = '10px';
+                btn.style.backgroundColor = '#6c5ce7';
+                btn.style.color = 'white';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '5px';
+                btn.style.cursor = 'pointer';
+                
+                btn.addEventListener('click', function() {
+                    audio.play();
+                    btn.remove();
+                });
+                
+                document.body.appendChild(btn);
+            });
+        }
+    }, 1000); // 1 segundo de espera
+});
+</script>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

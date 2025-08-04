@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploración Matemática Galáctica</title>
+    <link rel="stylesheet" href="/static/css/mapa-matematicas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="universo">
+        <div id="efecto-particulas"></div>
+        
+        <div class="contenedor-espacial">
+            <div class="">
+                <div class="titulo-container">
+                    <h1 class="titulo-misiones animate__animated animate__lightSpeedInRight">
+                        <span class="texto-titulo">Aventura Matemática</span>
+                        <span class="efecto-titulo"></span>
+                    </h1>
+                    <div class="subrayado-titulo"></div>
+                </div>
+                <p class="subtitulo animate__animated animate__fadeIn">Elige tu destino de aprendizaje</p>
+                
+                <div class="galaxia-niveles">
+                    <!-- Botones generados dinámicamente -->
+                </div>
+            </div>
+            
+            <div class="panel-mision" id="panel-mision">
+                <div class="contenido-mision">
+                    <div class="header-mision">
+                        <div class="badge-nivel" id="badge-nivel">Nivel 1</div>
+                        <h2 id="titulo-mision">Conteo del 1 al 10</h2>
+                        <div class="decoracion-orbita"></div>
+                    </div>
+                    <div class="descripcion-mision" id="descripcion-mision">
+                        Descripción detallada de la misión...
+                    </div>
+                    <div class="acciones-mision">
+                        <button class="btn-mision" id="btn-comenzar">
+                            <span class="icono-btn">🚀</span>
+                            <span class="texto-btn">Iniciar Viaje</span>
+                            <span class="efecto-btn"></span>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn-cerrar-panel" id="btn-cerrar">
+                    <span class="linea-cerrar"></span>
+                    <span class="linea-cerrar"></span>
+                </button>
+            </div>
+            
+            <a href="/Planetas" class="btn-regresar">
+                <span class="icono-regresar">←</span>
+                <span class="texto-regresar">Regresar al Sistema</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="/static/js/mapa-matematicas.js"></script>
+</body>
+</html>

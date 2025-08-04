@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Espacial - Elige tu Planeta</title>
+    <link rel="stylesheet" href="/static/css/planetas.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="space-background">
+        <div class=""></div>
+        <div class="twinkling"></div>
+        <div class="shooting-stars"></div>
+        
+        <header class="animate__animated animate__fadeInDown">
+            <h1 class="logo">¡Aventura Espacial Educativa!</h1>
+            <h1 >Elige un planeta para comenzar tu aprendizaje</h1>
+            <div class="rocket">🚀</div>
+        </header>
+        
+        <main>
+            <div class="planet-container">
+                <div class="planet earth" id="earth">
+                    <div class="planet-shadow"></div>
+                    <div class="clouds"></div>
+                    <div class="planet-info">
+                        <h2>Planeta Numeros</h2>
+                        <p>¡Aprende matemáticas con nosotros!</p>
+                        <div class="click-hint">Haz clic para explorar</div>
+                    </div>
+                </div>
+                <div class="coming-soon animate__animated animate__pulse animate__infinite">
+                    <p>¡Próximamente más planetas!</p>
+                    <div class="locked-planets">
+                        <div class="locked-planet mars"></div>
+                        <div class="locked-planet jupiter"></div>
+                        <div class="locked-planet saturn"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+        <div style="text-align: center;">
+            <a href="/materias" class="back-button">
+                <span class="button-icon">←</span> Volver a Materias
+            </a>
+        </div>
+        <div class="tutor-message animate__animated animate__fadeInRight">
+            <div class="tutor-bubble">
+                <p>¡Hola explorador! Soy tu tutor espacial. Haz clic en la Tierra para comenzar tu aventura matemática.</p>
+            </div>
+            <div class="tutor-icon">👨‍🚀</div>
+        </div>
+    </div>
+    
+    <div class="planet-selection-effect" id="planetEffect"></div>
+    <audio id="spaceSound" src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-positive-interface-2208.mp3" preload="auto"></audio>
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3" preload="auto"></audio>
+    
+    <script src="/static/js/planetas.js"></script>
+</body>
+</html>

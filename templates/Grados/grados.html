@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecciona tu Grado Espacial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/grados.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="logo">AprendeEnElEspacio</div>
+        <h1>¡Elige tu Misión!</h1>
+        <p class="subtitle">Selecciona el grado en que estás para comenzar tu aventura de aprendizaje</p>
+        
+        <div class="grade-options">
+            <div class="grade-card" data-grade="1">
+                <div class="planet-icon">🪐</div>
+                <h2>Primer Grado</h2>
+                <p>Misiones básicas para pequeños astronautas</p>
+                <div class="rocket">🚀</div>
+            </div>
+            
+            <div class="grade-card" data-grade="2">
+                <div class="planet-icon">🌎</div>
+                <h2>Segundo Grado</h2>
+                <p>Aventuras para exploradores interplanetarios</p>
+                <div class="rocket">🚀</div>
+            </div>
+            
+            <div class="grade-card" data-grade="3">
+                <div class="planet-icon">🛸</div>
+                <h2>Tercer Grado</h2>
+                <p>Retos para expertos en galaxias</p>
+                <div class="rocket">🚀</div>
+            </div>
+        </div>
+        <div id="floatingPlanets"></div>
+        <button class="back-button" id="backButton">Volver</button>
+    </div>
+
+    <script src="/static/js/grados.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
